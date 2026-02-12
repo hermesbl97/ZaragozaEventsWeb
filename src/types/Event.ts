@@ -5,7 +5,7 @@ export interface Event {
     id: number;
     name: string;
     description: string;
-    eventDate: Date;
+    eventDate: string;
     category: string;
     capacity: number;
     price: number;

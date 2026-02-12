@@ -5,7 +5,7 @@ export interface Location {
     category: string;
     streetLocated: string;
     postalCode: number;
-    registerDate: Date;
+    registerDate: string;
     disabledAccess: boolean;
     longitude: number;
     latitude: number;

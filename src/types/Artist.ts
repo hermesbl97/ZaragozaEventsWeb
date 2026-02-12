@@ -3,7 +3,7 @@ export interface Artist {
     name: string;
     surname: string;
     genre: string;
-    birthDate: Date;
+    birthDate: string;
     type: string;
     followers: number;
     height: number;
