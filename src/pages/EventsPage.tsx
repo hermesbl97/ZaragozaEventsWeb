@@ -10,10 +10,19 @@ export function EventsPage() {
     /*Query params */
   }
   const [query, setQuery] = useState("");
+  const [categoryFilter,setCategoryFilter] = useState("all");
+
+  const categoryOptions = Array.from(new Set(events.map((event) => event.category))).sort();
 
   const normalizedQuery = query.trim().toLowerCase();
-  const filteredEvents = normalizedQuery
-    ? events.filter((event) => {
+  const filteredEvents = events.filter((event) => {
+
+    if(categoryFilter !== "all" && event.category !== categoryFilter){
+        return false;
+    }
+
+    if(normalizedQuery) return true;
+
         const searchableText = [
           event.name,
           event.category,
@@ -23,8 +32,7 @@ export function EventsPage() {
           .toLowerCase();
 
         return searchableText.includes(normalizedQuery);
-      })
-    : events;
+      });
 
   useEffect(() => {
     fetch("http://localhost:8080/events")
@@ -67,6 +75,7 @@ export function EventsPage() {
           alignItems: "center",
           gap: "10px",
           marginBottom: "20px",
+          flexWrap: "wrap",
         }}
       >
         <input
@@ -82,6 +91,26 @@ export function EventsPage() {
             fontSize: "1rem",
           }}
         />
+        <select
+          value={categoryFilter}
+          onChange={(event) => setCategoryFilter(event.target.value)}
+          style={{
+            padding: "12px 14px",
+            borderRadius: "10px",
+            border: "1px solid #d0d7de",
+            backgroundColor: "#FFCE99",
+                color: "#562F00",
+            fontSize: "1rem",
+            minWidth: "170px",
+          }}
+        >
+          <option value="all">Todas las categorías</option>
+          {categoryOptions.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
         {query && (
           <button
             type="button"
@@ -90,7 +119,8 @@ export function EventsPage() {
               padding: "12px 14px",
               borderRadius: "10px",
               border: "1px solid #d0d7de",
-              background: "white",
+              backgroundColor: "#562F00",
+                color: "#FFFDF1",
               cursor: "pointer",
             }}
           >
