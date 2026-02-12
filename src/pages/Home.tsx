@@ -137,7 +137,7 @@ export function Home() {
               marginBottom: "24px",
             }}
           >
-            ¿Cuál es nuestra hsitoria?
+            ¿Cuál es nuestra historia?
           </h2>
 
           <p
