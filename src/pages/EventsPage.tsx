@@ -11,6 +11,7 @@ export function EventsPage() {
   }
   const [query, setQuery] = useState("");
   const [categoryFilter,setCategoryFilter] = useState("all");
+  const [sortOrder, setSortOrder] = useState<"asc | desc">("asc");
 
   const categoryOptions = Array.from(new Set(events.map((event) => event.category))).sort();
 
@@ -34,6 +35,11 @@ export function EventsPage() {
         return searchableText.includes(normalizedQuery);
       });
 
+      const sortedEvents = [...filteredEvents].sort((a,b) => {
+        const comparison = a.name.localeCompare(b.name);
+        return sortOrder === "asc" ? comparison : -comparison;
+      });
+
   useEffect(() => {
     fetch("http://localhost:8080/events")
       .then((r) => r.json())
@@ -53,12 +59,20 @@ export function EventsPage() {
   return (
     <div
       style={{
-        maxWidth: "1100px",
-        margin: "40px auto",
-        padding: "40px",
+        minHeight: "100vh",
         fontFamily: "system-ui",
+        backgroundColor: "#FFFDF1",
+        minWidth: "1200px",
       }}
     >
+        <div
+    style={{
+      padding: "60px 80px",
+      maxWidth: "1400px",
+      margin: "0 auto",
+      boxSizing: "border-box",
+    }}
+  >
       <h1
         style={{
           marginBottom: "32px",
@@ -111,6 +125,22 @@ export function EventsPage() {
             </option>
           ))}
         </select>
+        <select
+          value={sortOrder}
+          onChange={(event) => setSortOrder(event.target.value as "asc | desc")}
+          style={{
+            padding: "12px 14px",
+            borderRadius: "10px",
+            border: "1px solid #d0d7de",
+            backgroundColor: "#FFCE99",
+            color: "#562F00",
+            fontSize: "1rem",
+            minWidth: "170px",
+          }}
+        >
+          <option value="asc">Ascendente (A-Z)</option>
+          <option value="desc">Descendente (Z-A)</option>
+        </select>
         {query && (
           <button
             type="button"
@@ -142,34 +172,27 @@ export function EventsPage() {
               gap: "24px",
             }}
           >
-            {filteredEvents.map((event) => (
+            {sortedEvents.map((event) => (
               <div
                 key={event.id}
                 style={{
-                  background: "#FFFDF1",
-                  borderRadius: "16px",
-                  padding: "24px",
-                  boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "16px",
-                  transition: "0.3s",
+                  background: "#FFCE99",
+    borderRadius: "16px",
+    padding: "24px",
+    boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    minHeight: "170px",
                 }}
               >
-                {/* TÍTULO + FECHA */}
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "start",
-                  }}
-                >
+                {/* Nombre */}
                   <h3
                     style={{
                       margin: 0,
-                      color: "#562F00",
-                      fontSize: "1.2rem",
-                      fontWeight: 700,
+      color: "#562F00",
+      fontSize: "1.3rem",
+      fontWeight: 700,
                     }}
                   >
                     {event.name}
@@ -179,12 +202,10 @@ export function EventsPage() {
                     style={{
                       fontSize: "0.85rem",
                       color: "#7A4A1A",
-                      whiteSpace: "nowrap",
                     }}
                   >
                     Fecha: {event.eventDate}
                   </span>
-                </div>
 
                 {/* ETIQUETAS */}
                 <div
@@ -196,8 +217,8 @@ export function EventsPage() {
                 >
                   <span
                     style={{
-                      backgroundColor: "#FFCE99",
-                      color: "#562F00",
+                      backgroundColor: "#562F00",
+                      color: "#FFFDF1",
                       padding: "6px 14px",
                       borderRadius: "20px",
                       fontSize: "0.85rem",
@@ -209,8 +230,8 @@ export function EventsPage() {
 
                   <span
                     style={{
-                      backgroundColor: "#FFCE99",
-                      color: "#562F00",
+                      backgroundColor: "#562F00",
+                      color: "#FFFDF1",
                       padding: "6px 14px",
                       borderRadius: "20px",
                       fontSize: "0.85rem",
@@ -225,6 +246,7 @@ export function EventsPage() {
           </div>
         </ul>
       )}
+    </div>
     </div>
   );
 }
