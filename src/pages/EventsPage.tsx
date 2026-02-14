@@ -173,6 +173,7 @@ export function EventsPage() {
               }}
             >
               {sortedEvents.map((event) => (
+                <NavLink to={`/events/${event.id}`}>
                 <div
                   key={event.id}
                   style={{
@@ -185,8 +186,7 @@ export function EventsPage() {
                     justifyContent: "space-between",
                     minHeight: "170px",
                   }}
-                >
-                <NavLink to={`/events/${event.id}`}>    
+                >   
                   {/* Nombre */}
                   <h3
                     style={{
@@ -242,8 +242,9 @@ export function EventsPage() {
                       Precio: {event.price} €
                     </span>
                   </div>
-                </NavLink>
+                  
                 </div>
+                </NavLink>
               ))}
             </div>
           </ul>
