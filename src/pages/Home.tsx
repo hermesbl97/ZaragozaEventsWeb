@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 export function Home() {
     
@@ -52,7 +52,7 @@ export function Home() {
 
           {/* BOTONES */}
           <div style={{ display: "flex", gap: "16px" }}>
-            <Link
+            <NavLink
               to="/locations"
               style={{
                 backgroundColor: "#FFCE99",
@@ -67,9 +67,9 @@ export function Home() {
               }}
             >
               Encuentra por localización
-            </Link>
+            </NavLink>
 
-            <Link
+            <NavLink
               to="/events"
               style={{
                 backgroundColor: "#562F00",
@@ -84,7 +84,7 @@ export function Home() {
               }}
             >
               Encuentra tu evento
-            </Link>
+            </NavLink>
           </div>
         </div>
 
