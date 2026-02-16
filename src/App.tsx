@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import {Home} from './pages/Home'
 import { EventsPage } from './pages/EventsPage'
 import { EventsDetail } from './pages/EventsDetail'
+import { LocationsPage } from './pages/LocationsPage'
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/events' element={<EventsPage />} />
         <Route path='/events/:id' element={<EventsDetail/>} />
+        <Route path='/locations' element={<LocationsPage />} />
       </Routes>
       </BrowserRouter>
     </>
