@@ -1,8 +1,22 @@
 import React, { useEffect, useState } from "react";
 import type { Event } from "../types/Event";
 import { NavLink } from "react-router-dom";
+import { useTheme } from "../components/ThemeContext";
 
 export function EventsPage() {
+  
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
+  // Definición de colores dinámicos
+  const colors = {
+    bg: isDark ? "#1A1A1A" : "#FFFDF1",
+    text: isDark ? "#F1FAEE" : "#562F00",
+    subtext: isDark ? "#A0A0A0" : "#7A4A1A",
+    navbar: isDark ? "#483a2a" : "#FFCE99",
+    borders: isDark ? "#925627" : "#d0d7de",
+  };
+
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -59,7 +73,7 @@ export function EventsPage() {
       style={{
         minHeight: "100vh",
         fontFamily: "system-ui",
-        backgroundColor: "#FFFDF1",
+        backgroundColor: colors.bg,
         minWidth: "1200px",
       }}
     >
@@ -74,7 +88,7 @@ export function EventsPage() {
         <h1
           style={{
             marginBottom: "32px",
-            color: "#562F00",
+            color: colors.text,
             fontSize: "2.2rem",
           }}
         >
@@ -110,8 +124,8 @@ export function EventsPage() {
               padding: "12px 14px",
               borderRadius: "10px",
               border: "1px solid #d0d7de",
-              backgroundColor: "#FFCE99",
-              color: "#562F00",
+              backgroundColor: colors.navbar,
+              color: colors.text,
               fontSize: "1rem",
               minWidth: "170px",
             }}
@@ -131,9 +145,8 @@ export function EventsPage() {
             style={{
               padding: "12px 14px",
               borderRadius: "10px",
-              border: "1px solid #d0d7de",
-              backgroundColor: "#FFCE99",
-              color: "#562F00",
+              backgroundColor: colors.navbar,
+              color: colors.text,
               fontSize: "1rem",
               minWidth: "170px",
             }}
@@ -148,9 +161,8 @@ export function EventsPage() {
               style={{
                 padding: "12px 14px",
                 borderRadius: "10px",
-                border: "1px solid #d0d7de",
-                backgroundColor: "#562F00",
-                color: "#FFFDF1",
+                backgroundColor: colors.text,
+                color: colors.bg,
                 cursor: "pointer",
               }}
             >
@@ -174,75 +186,75 @@ export function EventsPage() {
             >
               {sortedEvents.map((event) => (
                 <NavLink to={`/events/${event.id}`}>
-                <div
-                  key={event.id}
-                  style={{
-                    background: "#FFCE99",
-                    borderRadius: "16px",
-                    padding: "24px",
-                    boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
-                    minHeight: "170px",
-                  }}
-                >   
-                  {/* Nombre */}
-                  <h3
-                    style={{
-                      margin: 0,
-                      color: "#562F00",
-                      fontSize: "1.3rem",
-                      fontWeight: 700,
-                    }}
-                  >
-                    {event.name}
-                  </h3>
-
-                  <span
-                    style={{
-                      fontSize: "0.85rem",
-                      color: "#7A4A1A",
-                    }}
-                  >
-                    Fecha: {event.eventDate}
-                  </span>
-
-                  {/* ETIQUETAS */}
                   <div
+                    key={event.id}
                     style={{
+                      background: colors.navbar,
+                      borderRadius: "16px",
+                      padding: "24px",
+                      boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
                       display: "flex",
+                      flexDirection: "column",
                       justifyContent: "space-between",
-                      alignItems: "center",
+                      minHeight: "170px",
                     }}
                   >
-                    <span
+                    {/* Nombre */}
+                    <h3
                       style={{
-                        backgroundColor: "#562F00",
-                        color: "#FFFDF1",
-                        padding: "6px 14px",
-                        borderRadius: "20px",
-                        fontSize: "0.85rem",
-                        fontWeight: 600,
+                        margin: 0,
+                        color: colors.text,
+                        fontSize: "1.3rem",
+                        fontWeight: 700,
                       }}
                     >
-                      {event.category}
-                    </span>
+                      {event.name}
+                    </h3>
 
                     <span
                       style={{
-                        backgroundColor: "#562F00",
-                        color: "#FFFDF1",
-                        padding: "6px 14px",
-                        borderRadius: "20px",
                         fontSize: "0.85rem",
-                        fontWeight: 600,
+                        color: colors.subtext,
                       }}
                     >
-                      Precio: {event.price} €
+                      Fecha: {event.eventDate}
                     </span>
+
+                    {/* ETIQUETAS */}
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                      }}
+                    >
+                      <span
+                        style={{
+                          backgroundColor: colors.text,
+                          color: colors.bg,
+                          padding: "6px 14px",
+                          borderRadius: "20px",
+                          fontSize: "0.85rem",
+                          fontWeight: 600,
+                        }}
+                      >
+                        {event.category}
+                      </span>
+
+                      <span
+                        style={{
+                          backgroundColor: colors.text,
+                          color: colors.bg,
+                          padding: "6px 14px",
+                          borderRadius: "20px",
+                          fontSize: "0.85rem",
+                          fontWeight: 600,
+                        }}
+                      >
+                        Precio: {event.price} €
+                      </span>
+                    </div>
                   </div>
-                </div>
                 </NavLink>
               ))}
             </div>

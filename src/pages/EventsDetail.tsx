@@ -2,8 +2,22 @@ import { useEffect, useState } from "react";
 import { Link, NavLink, useParams } from "react-router-dom";
 import type { Event } from "../types/Event";
 import type { Artist } from "../types/Artist";
+import { useTheme } from "../components/ThemeContext";
 
 export function EventsDetail() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
+  // Definición de colores dinámicos
+  const colors = {
+    bg: isDark ? "#1A1A1A" : "#FFFDF1",
+    text: isDark ? "#F1FAEE" : "#562F00",
+    subtext: isDark ? "#A0A0A0" : "#7A4A1A",
+    navbar: isDark ? "#483a2a" : "#FFCE99",
+    borders: isDark ? "#925627" : "#d0d7de",
+    info: isDark ? "#d9935e" : "#1D3557",
+  };
+
   const { id } = useParams<{ id: string }>();
   const [event, setEvent] = useState<Event | null>(null);
   const [loading, setLoading] = useState(true);
@@ -25,7 +39,7 @@ export function EventsDetail() {
 
   if (loading)
     return (
-      <div style={{ padding: "40px", textAlign: "center", color: "#1D3557" }}>
+      <div style={{ padding: "40px", textAlign: "center", color: colors.info }}>
         Cargando evento...
       </div>
     );
@@ -39,7 +53,7 @@ export function EventsDetail() {
   return (
     <div
       style={{
-        backgroundColor: "#FFFDF1",
+        backgroundColor: colors.bg,
         minHeight: "100vh",
         minWidth: "1200px",
       }}
@@ -47,7 +61,8 @@ export function EventsDetail() {
       <div
         style={{
           margin: "20px auto",
-          background: "#FFCE99",
+          background: colors.navbar,
+          color: colors.info,
           borderRadius: "24px",
           padding: "40px",
           display: "grid",
@@ -56,7 +71,7 @@ export function EventsDetail() {
         }}
       >
         <div>
-          <h1 style={{ color: "#562F00", fontSize: "2.5rem" }}>{event.name}</h1>
+          <h1 style={{ color: colors.text, fontSize: "2.5rem" }}>{event.name}</h1>
           <p>
             <strong>Fecha:</strong> {event.eventDate}
           </p>
@@ -65,7 +80,7 @@ export function EventsDetail() {
         <div>
           <div
             style={{
-              background: "#FFFDF1",
+              background: colors.bg,
               padding: "24px",
               borderRadius: "15px",
               display: "flex",
@@ -75,7 +90,7 @@ export function EventsDetail() {
           >
             <h3
               style={{
-                color: "#562F00",
+                color: colors.text,
                 textAlign: "center",
                 margin: 0,
                 marginBottom: "12px",
@@ -102,33 +117,43 @@ export function EventsDetail() {
               </p>
               <p style={{ margin: 0 }}>
                 👥 <strong>Capacidad:</strong> {event.capacity} personas
-              </p>  
+              </p>
               <p style={{ margin: 0 }}>
                 🌟 <strong>Artistas invitados:</strong>{" "}
                 {event.artists && event.artists.length > 0
-                  ? event.artists.map((artist: Artist) => `${artist.name} ${artist.surname}`).join(", ")
+                  ? event.artists
+                      .map(
+                        (artist: Artist) => `${artist.name} ${artist.surname}`,
+                      )
+                      .join(", ")
                   : "No hay artistas invitados"}
               </p>
             </div>
           </div>
-           <div style={{ display: "flex", justifyContent: "flex-end", marginTop:"15px" }}>
-        <NavLink
-          to="/events"
-          style={{
-            backgroundColor: "#562F00",
-            color: "#FFFDF1",
-            border: "none",
-            padding: "14px 28px",
-            borderRadius: "10px",
-            fontSize: "1rem",
-            fontWeight: 600,
-            cursor: "pointer",
-            transition: "0.3s",
-          }}
-        >
-          ← Volver atrás{" "}
-        </NavLink>
-        </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              marginTop: "15px",
+            }}
+          >
+            <NavLink
+              to="/events"
+              style={{
+                backgroundColor: colors.text,
+                color: colors.bg,
+                border: "none",
+                padding: "14px 28px",
+                borderRadius: "10px",
+                fontSize: "1rem",
+                fontWeight: 600,
+                cursor: "pointer",
+                transition: "0.3s",
+              }}
+            >
+              ← Volver atrás{" "}
+            </NavLink>
+          </div>
         </div>
       </div>
     </div>
