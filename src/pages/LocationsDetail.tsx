@@ -1,20 +1,19 @@
 import { useEffect, useState } from "react";
-import { Link, NavLink, useParams } from "react-router-dom";
-import type { Event } from "../types/Event";
-import type { Artist } from "../types/Artist";
+import { NavLink, useParams } from "react-router-dom";
+import type { Location } from "../types/Location";
 
-export function EventsDetail() {
+export function LocationsDetail() {
   const { id } = useParams<{ id: string }>();
-  const [event, setEvent] = useState<Event | null>(null);
+  const [location, setLocation] = useState<Location | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:8080/events/${id}`)
+    fetch(`http://localhost:8080/locations/${id}`)
       .then((r) => r.json())
       .then((data) => {
-        setEvent(data);
+        setLocation(data);
         setLoading(false);
       })
       .catch(() => {
@@ -26,13 +25,13 @@ export function EventsDetail() {
   if (loading)
     return (
       <div style={{ padding: "40px", textAlign: "center", color: "#1D3557" }}>
-        Cargando evento...
+        Cargando localización...
       </div>
     );
-  if (!event)
+  if (!location)
     return (
       <div style={{ padding: "40px", textAlign: "center" }}>
-        Evento no encontrado
+        Localización no encontrada
       </div>
     );
 
@@ -56,11 +55,8 @@ export function EventsDetail() {
         }}
       >
         <div>
-          <h1 style={{ color: "#562F00", fontSize: "2.5rem" }}>{event.name}</h1>
-          <p>
-            <strong>Fecha:</strong> {event.eventDate}
-          </p>
-          <p style={{ textAlign: "center" }}>{event.description}</p>
+          <h1 style={{ color: "#562F00", fontSize: "2.5rem" }}>{location.name} 📍</h1>
+          <p style={{ textAlign: "center" }}>{location.description}</p>
         </div>
         <div>
           <div
@@ -92,43 +88,49 @@ export function EventsDetail() {
               }}
             >
               <p style={{ margin: 0 }}>
-                📍 <strong>Lugar:</strong> {event.location?.name}
+                🏷️ <strong>Categoría:</strong> {location.category}
               </p>
               <p style={{ margin: 0 }}>
-                🏷️ <strong>Categoría:</strong> {event.category}
+                🌆 <strong>Dirección: </strong>{location.streetLocated}, {location.postalCode}
               </p>
               <p style={{ margin: 0 }}>
-                💰 <strong>Precio:</strong> {event.price} €
+                📆 <strong>Fecha de registro:</strong> {location.registerDate}
               </p>
-              <p style={{ margin: 0 }}>
-                👥 <strong>Capacidad:</strong> {event.capacity} personas
-              </p>  
-              <p style={{ margin: 0 }}>
-                🌟 <strong>Artistas invitados:</strong>{" "}
-                {event.artists && event.artists.length > 0
-                  ? event.artists.map((artist: Artist) => `${artist.name} ${artist.surname}`).join(", ")
-                  : "No hay artistas invitados"}
+             <p style={{ margin: 0 }}>
+                🧭 <strong>Coordenadas:</strong> {location.latitude}, {location.longitude}
+              </p>
+               <p style={{ margin: 0 }}>
+                ♿ <strong>Acceso para personas con discapacidad</strong> {location.disabledAccess
+                                  ? "🟢"
+                                  : "🔴"
+                }
               </p>
             </div>
           </div>
-           <div style={{ display: "flex", justifyContent: "flex-end", marginTop:"15px" }}>
-        <NavLink
-          to="/events"
-          style={{
-            backgroundColor: "#562F00",
-            color: "#FFFDF1",
-            border: "none",
-            padding: "14px 28px",
-            borderRadius: "10px",
-            fontSize: "1rem",
-            fontWeight: 600,
-            cursor: "pointer",
-            transition: "0.3s",
-          }}
-        >
-          ← Volver atrás{" "}
-        </NavLink>
-        </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              marginTop: "15px",
+            }}
+          >
+            <NavLink
+              to="/locations"
+              style={{
+                backgroundColor: "#562F00",
+                color: "#FFFDF1",
+                border: "none",
+                padding: "14px 28px",
+                borderRadius: "10px",
+                fontSize: "1rem",
+                fontWeight: 600,
+                cursor: "pointer",
+                transition: "0.3s",
+              }}
+            >
+              ← Volver atrás{" "}
+            </NavLink>
+          </div>
         </div>
       </div>
     </div>
