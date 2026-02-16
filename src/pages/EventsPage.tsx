@@ -242,7 +242,6 @@ export function EventsPage() {
                       Precio: {event.price} €
                     </span>
                   </div>
-                  
                 </div>
                 </NavLink>
               ))}
