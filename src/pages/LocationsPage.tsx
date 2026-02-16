@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Location } from "../types/Location";
+import { NavLink } from "react-router-dom";
 
 export function LocationsPage() {
   const [locations, setLocations] = useState<Location[]>([]);
@@ -23,12 +24,9 @@ export function LocationsPage() {
       return false;
     }
 
-  if (!normalizedQuery) return true;
+    if (!normalizedQuery) return true;
 
-    const searchableText = [
-      location.name,
-      location.category
-    ]
+    const searchableText = [location.name, location.category]
       .join(" ")
       .toLowerCase();
 
@@ -98,7 +96,7 @@ export function LocationsPage() {
             onChange={(location) => setQuery(location.target.value)}
             placeholder="Buscar por nombre o categoría"
             style={{
-                flex: 1,
+              flex: 1,
               padding: "12px 14px",
               borderRadius: "10px",
               border: "1px solid #d0d7de",
@@ -174,60 +172,65 @@ export function LocationsPage() {
             }}
           >
             {sortedLocations.map((location) => (
-              <div
-                key={location.id}
-                style={{
-                  background: "#FFCE99",
-                  borderRadius: "16px",
-                  padding: "24px",
-                  boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "8px",
-                  minHeight: "120px",
-                }}
-              >
-                {/* NOMBRE DE LA LOCALIZACIÓN */}
-                <h3
+              <NavLink to={`/locations/${location.id}`}>
+                <div
+                  key={location.id}
                   style={{
-                    margin: 0,
-                    color: "#562F00",
-                    fontSize: "1.4rem",
-                    fontWeight: 700,
+                    background: "#FFCE99",
+                    borderRadius: "16px",
+                    padding: "24px",
+                    boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "8px",
+                    minHeight: "120px",
                   }}
                 >
-                  {location.name}
-                </h3>
+                  {/* NOMBRE DE LA LOCALIZACIÓN */}
+                  <h3
+                    style={{
+                      margin: 0,
+                      color: "#562F00",
+                      fontSize: "1.4rem",
+                      fontWeight: 700,
+                    }}
+                  >
+                    {location.name}
+                  </h3>
 
-                {/* CATEGORÍA Y ACCESO EN LA MISMA LÍNEA */}
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "15px",
-                    fontSize: "0,7rem",
-                    color: "#562F00",
-                    fontWeight: 500,
-                    marginTop:"5px"
-                  }}
-                >
-                  <span>🏷️ Categoría: <strong>{location.category}</strong></span>
+                  {/* CATEGORÍA Y ACCESO EN LA MISMA LÍNEA */}
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "15px",
+                      fontSize: "0,7rem",
+                      color: "#562F00",
+                      fontWeight: 500,
+                      marginTop: "5px",
+                    }}
+                  >
+                    <span>
+                      🏷️ Categoría: <strong>{location.category}</strong>
+                    </span>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "15px",
+                      fontSize: "0,7rem",
+                      color: "#562F00",
+                      fontWeight: 500,
+                    }}
+                  >
+                    <span>
+                      ♿ Acceso a discapacitados:{" "}
+                      {location.disabledAccess ? "🟢" : "🔴"}
+                    </span>
+                  </div>
                 </div>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "15px",
-                    fontSize: "0,7rem",
-                    color: "#562F00",
-                    fontWeight: 500,
-                  }}
-                >
-                  <span>
-                    ♿ Acceso a discapacitados: {location.disabledAccess ? "🟢" : "🔴"}
-                  </span>
-                </div>
-              </div>
+              </NavLink>
             ))}
           </div>
         )}
