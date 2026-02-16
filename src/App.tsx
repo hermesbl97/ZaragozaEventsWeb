@@ -7,11 +7,13 @@ import { EventsPage } from './pages/EventsPage'
 import { EventsDetail } from './pages/EventsDetail'
 import { LocationsPage } from './pages/LocationsPage'
 import { LocationsDetail } from './pages/LocationsDetail'
+import { ThemeProvider } from './components/ThemeContext'
 
 function App() {
 
   return(
     <>
+      <ThemeProvider>
       <BrowserRouter>
       <Navbar />
       <Routes>
@@ -23,6 +25,7 @@ function App() {
       </Routes>
       <Footer />
       </BrowserRouter>
+      </ThemeProvider>
     </>
   )
 }
