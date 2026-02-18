@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
 import type { Location } from "../types/Location";
 import { NavLink } from "react-router-dom";
+import { useTheme } from "../components/ThemeContext";
+import { getThemeColors } from "../styles/themeStyles";
 
 export function LocationsPage() {
+  const { theme } = useTheme();
+  const colors = getThemeColors(theme === "dark");
+
   const [locations, setLocations] = useState<Location[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -59,7 +64,7 @@ export function LocationsPage() {
       style={{
         minHeight: "100vh",
         fontFamily: "system-ui",
-        backgroundColor: "#FFFDF1",
+        backgroundColor: colors.bg,
         minWidth: "1200px",
       }}
     >
@@ -74,7 +79,7 @@ export function LocationsPage() {
         <h1
           style={{
             marginBottom: "32px",
-            color: "#562F00",
+            color: colors.text,
             fontSize: "2.2rem",
           }}
         >
@@ -110,9 +115,9 @@ export function LocationsPage() {
             style={{
               padding: "12px 14px",
               borderRadius: "10px",
-              border: "1px solid #d0d7de",
-              backgroundColor: "#FFCE99",
-              color: "#562F00",
+              border: `1px solid ${colors.borders}`,
+              backgroundColor: colors.navbar,
+              color: colors.text,
               fontSize: "1rem",
               minWidth: "170px",
             }}
@@ -132,9 +137,9 @@ export function LocationsPage() {
             style={{
               padding: "12px 14px",
               borderRadius: "10px",
-              border: "1px solid #d0d7de",
-              backgroundColor: "#FFCE99",
-              color: "#562F00",
+              border: `1px solid ${colors.borders}`,
+              backgroundColor: colors.navbar,
+              color: colors.text,
               fontSize: "1rem",
               minWidth: "170px",
             }}
@@ -150,8 +155,8 @@ export function LocationsPage() {
                 padding: "12px 14px",
                 borderRadius: "10px",
                 border: "1px solid #d0d7de",
-                backgroundColor: "#562F00",
-                color: "#FFFDF1",
+                backgroundColor: colors.text,
+                color: colors.bg,
                 cursor: "pointer",
               }}
             >
@@ -176,7 +181,7 @@ export function LocationsPage() {
                 <div
                   key={location.id}
                   style={{
-                    background: "#FFCE99",
+                    background: colors.navbar,
                     borderRadius: "16px",
                     padding: "24px",
                     boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
@@ -190,7 +195,7 @@ export function LocationsPage() {
                   <h3
                     style={{
                       margin: 0,
-                      color: "#562F00",
+                      color: colors.text,
                       fontSize: "1.4rem",
                       fontWeight: 700,
                     }}
@@ -205,7 +210,7 @@ export function LocationsPage() {
                       alignItems: "center",
                       gap: "15px",
                       fontSize: "0,7rem",
-                      color: "#562F00",
+                      color: colors.text,
                       fontWeight: 500,
                       marginTop: "5px",
                     }}
@@ -220,7 +225,7 @@ export function LocationsPage() {
                       alignItems: "center",
                       gap: "15px",
                       fontSize: "0,7rem",
-                      color: "#562F00",
+                      color: colors.text,
                       fontWeight: 500,
                     }}
                   >

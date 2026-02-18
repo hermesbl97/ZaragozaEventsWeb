@@ -1,13 +1,18 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useTheme } from "../components/ThemeContext";
+import { getThemeColors } from "../styles/themeStyles";
 
 export function Home() {
     
   const navigate = useNavigate();
 
+  const {theme} = useTheme();
+  const colors = getThemeColors(theme === "dark");
+
   return (
     <div
       style={{
-        backgroundColor: "#FFFDF1",
+        backgroundColor: colors.bg,
         minHeight: "100vh",
         width: "100%",
       }}
@@ -28,7 +33,7 @@ export function Home() {
             style={{
               fontSize: "3rem",
               fontWeight: 800,
-              color: "#562F00",
+              color: colors.text,
               marginBottom: "20px",
               textAlign: "match-parent",
             }}
@@ -39,7 +44,7 @@ export function Home() {
           <p
             style={{
               fontSize: "1.2rem",
-              color: "#7A4A1A",
+              color: colors.subtext,
               maxWidth: "500px",
               marginBottom: "32px",
               lineHeight: 1.6,
@@ -55,8 +60,8 @@ export function Home() {
             <NavLink
               to="/locations"
               style={{
-                backgroundColor: "#FFCE99",
-                color: "#562F00",
+                backgroundColor: colors.navbar,
+                color: colors.text,
                 border: "none",
                 padding: "14px 28px",
                 borderRadius: "10px",
@@ -72,8 +77,8 @@ export function Home() {
             <NavLink
               to="/events"
               style={{
-                backgroundColor: "#562F00",
-                color: "#FFFDF1",
+                backgroundColor: colors.text,
+                color: colors.navbar,
                 border: "none",
                 padding: "14px 28px",
                 borderRadius: "10px",
@@ -113,7 +118,7 @@ export function Home() {
       {/* SECCIÓN NUESTRA HISTORIA */}
       <section
         style={{
-          backgroundColor: "#FFCE99",
+          backgroundColor: colors.navbar,
           padding: "80px",
           display: "flex",
           justifyContent: "center",
@@ -122,7 +127,7 @@ export function Home() {
         <div
           style={{
             maxWidth: "900px",
-            backgroundColor: "#FFFDF1",
+            backgroundColor: colors.bg,
             padding: "60px",
             borderRadius: "20px",
             boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
@@ -133,7 +138,7 @@ export function Home() {
             style={{
               fontSize: "2.2rem",
               fontWeight: 700,
-              color: "#562F00",
+              color: colors.text,
               marginBottom: "24px",
             }}
           >
@@ -143,7 +148,7 @@ export function Home() {
           <p
             style={{
               fontSize: "1.1rem",
-              color: "#7A4A1A",
+              color: colors.subtext,
               lineHeight: 1.7,
               textAlign: "justify",
             }}
