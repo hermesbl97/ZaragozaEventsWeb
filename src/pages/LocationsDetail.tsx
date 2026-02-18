@@ -2,20 +2,11 @@ import { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import type { Location } from "../types/Location";
 import { useTheme } from "../components/ThemeContext";
+import { getThemeColors } from "../styles/themeStyles";
 
 export function LocationsDetail() {
   const { theme } = useTheme();
-  const isDark = theme === "dark";
-
-  // Definición de colores dinámicos
-  const colors = {
-    bg: isDark ? "#1A1A1A" : "#FFFDF1",
-    text: isDark ? "#F1FAEE" : "#562F00",
-    subtext: isDark ? "#A0A0A0" : "#7A4A1A",
-    navbar: isDark ? "#483a2a" : "#FFCE99",
-    borders: isDark ? "#925627" : "#d0d7de",
-    info: isDark ? "#d9935e" : "#1D3557",
-  };
+  const colors = getThemeColors(theme === "dark");
 
   const { id } = useParams<{ id: string }>();
   const [location, setLocation] = useState<Location | null>(null);
