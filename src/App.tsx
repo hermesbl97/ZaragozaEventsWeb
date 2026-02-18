@@ -9,6 +9,7 @@ import { LocationsPage } from './pages/LocationsPage'
 import { LocationsDetail } from './pages/LocationsDetail'
 import { ThemeProvider } from './components/ThemeContext'
 import { ArtistsPage } from './pages/ArtistsPage'
+import { ArtistsDetail } from './pages/ArtistsDetail'
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
         <Route path='/locations' element={<LocationsPage />} />
         <Route path='/locations/:id' element={<LocationsDetail />} />
         <Route path='/artists' element={<ArtistsPage />} />
+        <Route path='/artists/:id' element={<ArtistsDetail />} />
       </Routes>
       <Footer />
       </BrowserRouter>

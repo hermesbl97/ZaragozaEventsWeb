@@ -232,7 +232,7 @@ export function ArtistsPage() {
                       }}
                     >
                       <span>
-                        🏷️ Type: <strong>{artist.type}</strong>
+                        🔖 Type: <strong>{artist.type}</strong>
                       </span>
                     </div>
                     <div
