@@ -86,6 +86,20 @@ export function LocationsPage() {
           Localizaciones en Zaragoza
         </h1>
 
+        {/* RETROALIMENTACIÓN: CONTADOR DE RESULTADOS */}
+        <div
+          style={{
+            marginBottom: "25px",
+            color: colors.subtext,
+            fontSize: "0.9rem",
+            fontWeight: 500,
+          }}
+        >
+          {sortedLocations.length === 0
+            ? "No se han encontrado resultados para tu búsqueda"
+            : `Se han encontrado ${sortedLocations.length} localizaciones`}
+        </div>
+
         {/* BARRA DE FILTROS */}
         <div
           style={{

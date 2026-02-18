@@ -5,7 +5,6 @@ import { useTheme } from "../components/ThemeContext";
 import { getThemeColors } from "../styles/themeStyles";
 
 export function EventsPage() {
-  
   const { theme } = useTheme();
   const colors = getThemeColors(theme === "dark");
 
@@ -30,7 +29,7 @@ export function EventsPage() {
       return false;
     }
 
-    if (normalizedQuery) return true;
+    if (!normalizedQuery) return true;
 
     const searchableText = [event.name, event.category, event.price]
       .join(" ")
@@ -86,6 +85,20 @@ export function EventsPage() {
         >
           Eventos en Zaragoza
         </h1>
+
+        {/* RETROALIMENTACIÓN: CONTADOR DE RESULTADOS */}
+        <div
+          style={{
+            marginBottom: "25px",
+            color: colors.subtext,
+            fontSize: "0.9rem",
+            fontWeight: 500,
+          }}
+        >
+          {sortedEvents.length === 0
+            ? "No se han encontrado resultados para tu búsqueda"
+            : `Se han encontrado ${sortedEvents.length} eventos`}
+        </div>
 
         <div
           style={{
