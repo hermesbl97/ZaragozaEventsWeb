@@ -101,6 +101,10 @@ export function ArtistsDetail() {
               <p style={{ margin: 0 }}>
                 📊 <strong>Altura: </strong> {artist?.height} m
               </p>
+              <p style={{ margin: 0 }}>
+                🕺 <strong>Artista en </strong>{" "}
+                {artist?.active ? "activo" : "retirado"}
+              </p>
             </div>
           </div>
           <div
@@ -111,7 +115,7 @@ export function ArtistsDetail() {
             }}
           >
             <NavLink
-              to="/locations"
+              to="/artists"
               style={{
                 backgroundColor: colors.text,
                 color: colors.bg,
