@@ -102,8 +102,8 @@ export function ArtistsDetail() {
                 📊 <strong>Altura: </strong> {artist?.height} m
               </p>
               <p style={{ margin: 0 }}>
-                🕺 <strong>Artista en </strong>{" "}
-                {artist?.active ? "activo" : "retirado"}
+                🕺 <strong>Artista  </strong>{" "}
+                {artist?.active ? "en activo" : "retirado"}
               </p>
             </div>
           </div>
