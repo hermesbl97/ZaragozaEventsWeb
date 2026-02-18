@@ -1,8 +1,22 @@
 import { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import type { Location } from "../types/Location";
+import { useTheme } from "../components/ThemeContext";
 
 export function LocationsDetail() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
+  // Definición de colores dinámicos
+  const colors = {
+    bg: isDark ? "#1A1A1A" : "#FFFDF1",
+    text: isDark ? "#F1FAEE" : "#562F00",
+    subtext: isDark ? "#A0A0A0" : "#7A4A1A",
+    navbar: isDark ? "#483a2a" : "#FFCE99",
+    borders: isDark ? "#925627" : "#d0d7de",
+    info: isDark ? "#d9935e" : "#1D3557",
+  };
+
   const { id } = useParams<{ id: string }>();
   const [location, setLocation] = useState<Location | null>(null);
   const [loading, setLoading] = useState(true);
@@ -24,7 +38,7 @@ export function LocationsDetail() {
 
   if (loading)
     return (
-      <div style={{ padding: "40px", textAlign: "center", color: "#1D3557" }}>
+      <div style={{ padding: "40px", textAlign: "center", color: colors.info }}>
         Cargando localización...
       </div>
     );
@@ -38,7 +52,7 @@ export function LocationsDetail() {
   return (
     <div
       style={{
-        backgroundColor: "#FFFDF1",
+        backgroundColor: colors.bg,
         minHeight: "100vh",
         minWidth: "1200px",
       }}
@@ -46,8 +60,9 @@ export function LocationsDetail() {
       <div
         style={{
           margin: "20px auto",
-          background: "#FFCE99",
+          background: colors.navbar,
           borderRadius: "24px",
+          color: colors.info,
           padding: "40px",
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
@@ -55,13 +70,15 @@ export function LocationsDetail() {
         }}
       >
         <div>
-          <h1 style={{ color: "#562F00", fontSize: "2.5rem" }}>{location.name} 📍</h1>
+          <h1 style={{ color: colors.text, fontSize: "2.5rem" }}>
+            {location.name} 📍
+          </h1>
           <p style={{ textAlign: "center" }}>{location.description}</p>
         </div>
         <div>
           <div
             style={{
-              background: "#FFFDF1",
+              background: colors.bg,
               padding: "24px",
               borderRadius: "15px",
               display: "flex",
@@ -71,7 +88,7 @@ export function LocationsDetail() {
           >
             <h3
               style={{
-                color: "#562F00",
+                color: colors.text,
                 textAlign: "center",
                 margin: 0,
                 marginBottom: "12px",
@@ -91,19 +108,19 @@ export function LocationsDetail() {
                 🏷️ <strong>Categoría:</strong> {location.category}
               </p>
               <p style={{ margin: 0 }}>
-                🌆 <strong>Dirección: </strong>{location.streetLocated}, {location.postalCode}
+                🌆 <strong>Dirección: </strong>
+                {location.streetLocated}, {location.postalCode}
               </p>
               <p style={{ margin: 0 }}>
                 📆 <strong>Fecha de registro:</strong> {location.registerDate}
               </p>
-             <p style={{ margin: 0 }}>
-                🧭 <strong>Coordenadas:</strong> {location.latitude}, {location.longitude}
+              <p style={{ margin: 0 }}>
+                🧭 <strong>Coordenadas:</strong> {location.latitude},{" "}
+                {location.longitude}
               </p>
-               <p style={{ margin: 0 }}>
-                ♿ <strong>Acceso para personas con discapacidad</strong> {location.disabledAccess
-                                  ? "🟢"
-                                  : "🔴"
-                }
+              <p style={{ margin: 0 }}>
+                ♿ <strong>Acceso para personas con discapacidad</strong>{" "}
+                {location.disabledAccess ? "🟢" : "🔴"}
               </p>
             </div>
           </div>
@@ -117,8 +134,8 @@ export function LocationsDetail() {
             <NavLink
               to="/locations"
               style={{
-                backgroundColor: "#562F00",
-                color: "#FFFDF1",
+                backgroundColor: colors.text,
+                color: colors.bg,
                 border: "none",
                 padding: "14px 28px",
                 borderRadius: "10px",

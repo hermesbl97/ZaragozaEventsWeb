@@ -86,7 +86,7 @@ export default function Navbar() {
       </NavLink>
 
       {/* MENÚ DE NAVEGACIÓN */}
-      <div style={{ display: "flex", alignItems: "center" }}>
+      <div style={{ display: "flex", alignItems: "center"}}>
         <div style={{ display: "flex", gap: "3px" }}>
           <NavLink to="/" style={linkStyle}>
             Home
