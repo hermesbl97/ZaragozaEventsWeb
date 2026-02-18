@@ -8,6 +8,7 @@ import { EventsDetail } from './pages/EventsDetail'
 import { LocationsPage } from './pages/LocationsPage'
 import { LocationsDetail } from './pages/LocationsDetail'
 import { ThemeProvider } from './components/ThemeContext'
+import { ArtistsPage } from './pages/ArtistsPage'
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
         <Route path='/events/:id' element={<EventsDetail/>} />
         <Route path='/locations' element={<LocationsPage />} />
         <Route path='/locations/:id' element={<LocationsDetail />} />
+        <Route path='/artists' element={<ArtistsPage />} />
       </Routes>
       <Footer />
       </BrowserRouter>
