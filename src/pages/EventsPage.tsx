@@ -104,7 +104,7 @@ export function EventsPage() {
               flex: 1,
               padding: "12px 14px",
               borderRadius: "10px",
-              border: "1px solid #d0d7de",
+              border: `1px solid ${colors.borders}`,
               background: "#f9fafb",
               fontSize: "1rem",
             }}
@@ -115,7 +115,7 @@ export function EventsPage() {
             style={{
               padding: "12px 14px",
               borderRadius: "10px",
-              border: "1px solid #d0d7de",
+              border: `1px solid ${colors.borders}`,
               backgroundColor: colors.navbar,
               color: colors.text,
               fontSize: "1rem",
@@ -138,6 +138,7 @@ export function EventsPage() {
               padding: "12px 14px",
               borderRadius: "10px",
               backgroundColor: colors.navbar,
+              border: `1px solid ${colors.borders}`,
               color: colors.text,
               fontSize: "1rem",
               minWidth: "170px",

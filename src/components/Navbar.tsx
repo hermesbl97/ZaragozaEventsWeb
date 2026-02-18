@@ -73,7 +73,7 @@ export default function Navbar() {
           <div style={{ display: "flex", flexDirection: "column" }}>
             <span
               style={{
-                color: colors.text,
+                color: "white",
                 fontWeight: 750,
                 fontSize: "1.7rem",
                 lineHeight: 1,

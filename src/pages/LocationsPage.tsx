@@ -115,7 +115,7 @@ export function LocationsPage() {
             style={{
               padding: "12px 14px",
               borderRadius: "10px",
-              border: "1px solid #d0d7de",
+              border: `1px solid ${colors.borders}`,
               backgroundColor: colors.navbar,
               color: colors.text,
               fontSize: "1rem",
@@ -137,7 +137,7 @@ export function LocationsPage() {
             style={{
               padding: "12px 14px",
               borderRadius: "10px",
-              border: "1px solid #d0d7de",
+              border: `1px solid ${colors.borders}`,
               backgroundColor: colors.navbar,
               color: colors.text,
               fontSize: "1rem",

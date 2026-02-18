@@ -77,8 +77,8 @@ export function Home() {
             <NavLink
               to="/events"
               style={{
-                backgroundColor: "#562F00",
-                color: "#FFFDF1",
+                backgroundColor: colors.text,
+                color: colors.navbar,
                 border: "none",
                 padding: "14px 28px",
                 borderRadius: "10px",
