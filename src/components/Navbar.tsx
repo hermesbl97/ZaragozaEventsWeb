@@ -3,7 +3,7 @@ import { useTheme } from "./ThemeContext";
 
 export default function Navbar() {
   const linkStyle = ({ isActive }: { isActive: boolean }) => ({
-    color: isActive ? colors.text : colors.bg, 
+    color: isActive ? colors.text : colors.bg,
     textDecoration: "none",
     fontWeight: 500,
     fontSize: "1rem",
@@ -23,7 +23,7 @@ export default function Navbar() {
     text: isDark ? "#F1FAEE" : "#562F00",
     subtext: isDark ? "#A0A0A0" : "#7A4A1A",
     navbar: isDark ? "#483a2a" : "#FFCE99",
-    navBg: isDark ? "#925627" : "#FF9644"
+    navBg: isDark ? "#925627" : "#FF9644",
   };
 
   return (
@@ -86,7 +86,7 @@ export default function Navbar() {
       </NavLink>
 
       {/* MENÚ DE NAVEGACIÓN */}
-      <div style={{ display: "flex", alignItems: "center"}}>
+      <div style={{ display: "flex", alignItems: "center" }}>
         <div style={{ display: "flex", gap: "3px" }}>
           <NavLink to="/" style={linkStyle}>
             Home
@@ -103,18 +103,23 @@ export default function Navbar() {
           </NavLink>
         </div>
         <div>
-        <button
-          onClick={toggleTheme}
-          style={{
-            background: "none",
-            color: colors.bg,
-            cursor: "pointer",
-            padding: "5px 10px",
-            borderRadius: "5px",
-          }}
-        >
-          {theme === "light" ? "🌙 Modo Oscuro" : "☀️ Modo Claro"}
-        </button>
+          <NavLink to="/artists" style={linkStyle}>
+            Artistas
+          </NavLink>
+        </div>
+        <div>
+          <button
+            onClick={toggleTheme}
+            style={{
+              background: "none",
+              color: colors.bg,
+              cursor: "pointer",
+              padding: "5px 10px",
+              borderRadius: "5px",
+            }}
+          >
+            {theme === "light" ? "🌙 Modo Oscuro" : "☀️ Modo Claro"}
+          </button>
         </div>
       </div>
     </nav>

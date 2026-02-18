@@ -1,26 +1,26 @@
-import { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
-import type { Location } from "../types/Location";
 import { useTheme } from "../components/ThemeContext";
+import { useEffect, useState } from "react";
 import { getThemeColors } from "../styles/themeStyles";
 import { LoadingStatus } from "../components/LoadingStatus";
 import { ErrorStatus } from "../components/ErrorStatus";
+import type { Artist } from "../types/Artist";
 
-export function LocationsDetail() {
+export function ArtistsDetail() {
   const { theme } = useTheme();
   const colors = getThemeColors(theme === "dark");
 
   const { id } = useParams<{ id: string }>();
-  const [location, setLocation] = useState<Location | null>(null);
+  const [artist, setArtist] = useState<Artist | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:8080/locations/${id}`)
+    fetch(`http://localhost:8080/artists/${id}`)
       .then((r) => r.json())
       .then((data) => {
-        setLocation(data);
+        setArtist(data);
         setLoading(false);
       })
       .catch(() => {
@@ -30,7 +30,7 @@ export function LocationsDetail() {
   }, [id]);
 
   if (loading) return <LoadingStatus message="Cargando localización ..." />;
-  if (error) return <ErrorStatus message="Localización no encontrada" />;
+  if (error) return <ErrorStatus message="Artista no encontrado" />;
 
   return (
     <div
@@ -54,9 +54,8 @@ export function LocationsDetail() {
       >
         <div>
           <h1 style={{ color: colors.text, fontSize: "2.5rem" }}>
-            {location?.name} 📍
+            {artist?.name} {artist?.surname} 🌟
           </h1>
-          <p style={{ textAlign: "center" }}>{location?.description}</p>
         </div>
         <div>
           <div
@@ -88,22 +87,19 @@ export function LocationsDetail() {
               }}
             >
               <p style={{ margin: 0 }}>
-                🏷️ <strong>Categoría:</strong> {location?.category}
+                🔖 <strong>Tipo:</strong> {artist?.type}
               </p>
               <p style={{ margin: 0 }}>
-                🌆 <strong>Dirección: </strong>
-                {location?.streetLocated}, {location?.postalCode}
+                ⚧️ <strong>Género: </strong> {artist?.genre}
               </p>
               <p style={{ margin: 0 }}>
-                📆 <strong>Fecha de registro:</strong> {location?.registerDate}
+                📆 <strong>Fecha de nacimiento:</strong> {artist?.birthDate}
               </p>
               <p style={{ margin: 0 }}>
-                🧭 <strong>Coordenadas:</strong> {location?.latitude},{" "}
-                {location?.longitude}
+                📱 <strong>Seguidores:</strong> {artist?.followers} personas
               </p>
               <p style={{ margin: 0 }}>
-                ♿ <strong>Acceso para personas con discapacidad</strong>{" "}
-                {location?.disabledAccess ? "🟢" : "🔴"}
+                📊 <strong>Altura: </strong> {artist?.height} m
               </p>
             </div>
           </div>

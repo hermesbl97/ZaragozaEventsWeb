@@ -54,11 +54,11 @@ export function EventsDetail() {
         }}
       >
         <div>
-          <h1 style={{ color: colors.text, fontSize: "2.5rem" }}>{event.name}</h1>
+          <h1 style={{ color: colors.text, fontSize: "2.5rem" }}>{event?.name}</h1>
           <p>
-            <strong>Fecha:</strong> {event.eventDate}
+            <strong>Fecha:</strong> {event?.eventDate}
           </p>
-          <p style={{ textAlign: "center" }}>{event.description}</p>
+          <p style={{ textAlign: "center" }}>{event?.description}</p>
         </div>
         <div>
           <div
@@ -90,20 +90,20 @@ export function EventsDetail() {
               }}
             >
               <p style={{ margin: 0 }}>
-                📍 <strong>Lugar:</strong> {event.location?.name}
+                📍 <strong>Lugar:</strong> {event?.location?.name}
               </p>
               <p style={{ margin: 0 }}>
-                🏷️ <strong>Categoría:</strong> {event.category}
+                🏷️ <strong>Categoría:</strong> {event?.category}
               </p>
               <p style={{ margin: 0 }}>
-                💰 <strong>Precio:</strong> {event.price} €
+                💰 <strong>Precio:</strong> {event?.price} €
               </p>
               <p style={{ margin: 0 }}>
-                👥 <strong>Capacidad:</strong> {event.capacity} personas
+                👥 <strong>Capacidad:</strong> {event?.capacity} personas
               </p>
               <p style={{ margin: 0 }}>
                 🌟 <strong>Artistas invitados:</strong>{" "}
-                {event.artists && event.artists.length > 0
+                {event?.artists && event.artists.length > 0
                   ? event.artists
                       .map(
                         (artist: Artist) => `${artist.name} ${artist.surname}`,
