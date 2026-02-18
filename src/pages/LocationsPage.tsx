@@ -3,6 +3,8 @@ import type { Location } from "../types/Location";
 import { NavLink } from "react-router-dom";
 import { useTheme } from "../components/ThemeContext";
 import { getThemeColors } from "../styles/themeStyles";
+import { LoadingStatus } from "../components/LoadingStatus";
+import { ErrorStatus } from "../components/ErrorStatus";
 
 export function LocationsPage() {
   const { theme } = useTheme();
@@ -56,8 +58,8 @@ export function LocationsPage() {
       });
   }, []);
 
-  if (loading) return <p>Cargando localizaciones...</p>;
-  if (error) return <p>{error}</p>;
+  if (loading) return <LoadingStatus message="Cargando localizaciones..." />;
+  if (error) return <ErrorStatus message={error} />;
 
   return (
     <div

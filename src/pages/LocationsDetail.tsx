@@ -3,6 +3,8 @@ import { NavLink, useParams } from "react-router-dom";
 import type { Location } from "../types/Location";
 import { useTheme } from "../components/ThemeContext";
 import { getThemeColors } from "../styles/themeStyles";
+import { LoadingStatus } from "../components/LoadingStatus";
+import { ErrorStatus } from "../components/ErrorStatus";
 
 export function LocationsDetail() {
   const { theme } = useTheme();
@@ -27,18 +29,8 @@ export function LocationsDetail() {
       });
   }, [id]);
 
-  if (loading)
-    return (
-      <div style={{ padding: "40px", textAlign: "center", color: colors.info }}>
-        Cargando localización...
-      </div>
-    );
-  if (!location)
-    return (
-      <div style={{ padding: "40px", textAlign: "center" }}>
-        Localización no encontrada
-      </div>
-    );
+  if (loading) return <LoadingStatus message="Cargando localización ..." />;
+  if (error) return <ErrorStatus message="Localización no encontrada" />;
 
   return (
     <div

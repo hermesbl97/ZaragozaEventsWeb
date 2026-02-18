@@ -4,6 +4,8 @@ import type { Event } from "../types/Event";
 import type { Artist } from "../types/Artist";
 import { useTheme } from "../components/ThemeContext";
 import { getThemeColors } from "../styles/themeStyles";
+import { ErrorStatus } from "../components/ErrorStatus";
+import { LoadingStatus } from "../components/LoadingStatus";
 
 export function EventsDetail() {
   const { theme } = useTheme();
@@ -28,18 +30,8 @@ export function EventsDetail() {
       });
   }, [id]);
 
-  if (loading)
-    return (
-      <div style={{ padding: "40px", textAlign: "center", color: colors.info }}>
-        Cargando evento...
-      </div>
-    );
-  if (!event)
-    return (
-      <div style={{ padding: "40px", textAlign: "center" }}>
-        Evento no encontrado
-      </div>
-    );
+  if (loading) return <LoadingStatus message="Cargando evento..." />;
+  if (error) return <ErrorStatus message= "Evento no encontrado" />;
 
   return (
     <div
