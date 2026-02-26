@@ -181,7 +181,7 @@ export function EventsPage() {
 
         {filteredEvents.length === 0 ? (
           <p style={{ color: "#666" }}>
-            Nose dispone de ningún evento con estas características
+            No se dispone de ningún evento con estas características
           </p>
         ) : (
           <ul style={{ listStyle: "none", padding: 0 }}>
@@ -192,79 +192,46 @@ export function EventsPage() {
                 gap: "24px",
               }}
             >
-              {sortedEvents.map((event) => (
-                <NavLink to={`/events/${event.id}`}>
-                  <div
-                    key={event.id}
+{sortedEvents.map((event) => (
+              <NavLink key={event.id} to={`/events/${event.id}`} style={{ textDecoration: 'none' }}>
+                <div
+                  style={{
+                    background: colors.navbar,
+                    borderRadius: "16px",
+                    padding: "24px",
+                    boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "8px",
+                    minHeight: "140px",
+                    transition: "transform 0.2s",
+                  }}
+                >
+                  <h3
                     style={{
-                      background: colors.navbar,
-                      borderRadius: "16px",
-                      padding: "24px",
-                      boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "space-between",
-                      minHeight: "170px",
+                      margin: 0,
+                      color: colors.text,
+                      fontSize: "1.4rem",
+                      fontWeight: 700,
                     }}
                   >
-                    {/* Nombre */}
-                    <h3
-                      style={{
-                        margin: 0,
-                        color: colors.text,
-                        fontSize: "1.3rem",
-                        fontWeight: 700,
-                      }}
-                    >
-                      {event.name}
-                    </h3>
+                    {event.name}
+                  </h3>
 
-                    <span
-                      style={{
-                        fontSize: "0.85rem",
-                        color: colors.subtext,
-                      }}
-                    >
-                      Fecha: {event.eventDate}
+                  <div style={{ color: colors.text, fontSize: "0.9rem", marginTop: "5px", display: "flex", flexDirection: "column", gap: "4px" }}>
+                    <span>
+                      📅 Fecha: <strong>{event.eventDate}</strong>
                     </span>
-
-                    {/* ETIQUETAS */}
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                      }}
-                    >
-                      <span
-                        style={{
-                          backgroundColor: colors.text,
-                          color: colors.bg,
-                          padding: "6px 14px",
-                          borderRadius: "20px",
-                          fontSize: "0.85rem",
-                          fontWeight: 600,
-                        }}
-                      >
-                        {event.category}
-                      </span>
-
-                      <span
-                        style={{
-                          backgroundColor: colors.text,
-                          color: colors.bg,
-                          padding: "6px 14px",
-                          borderRadius: "20px",
-                          fontSize: "0.85rem",
-                          fontWeight: 600,
-                        }}
-                      >
-                        Precio: {event.price} €
-                      </span>
-                    </div>
+                    <span>
+                      🏷️ Categoría: <strong>{event.category}</strong>
+                    </span>
+                    <span>
+                      💰 Precio: <strong>{event.price} €</strong>
+                    </span>
                   </div>
-                </NavLink>
-              ))}
+                </div>
+              </NavLink>
+            ))}
             </div>
           </ul>
         )}
