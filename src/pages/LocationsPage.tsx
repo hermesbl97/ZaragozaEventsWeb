@@ -5,6 +5,9 @@ import { useTheme } from "../components/ThemeContext";
 import { getThemeColors } from "../styles/themeStyles";
 import { LoadingStatus } from "../components/LoadingStatus";
 import { ErrorStatus } from "../components/ErrorStatus";
+import { LocationCard } from "../components/LocationCard";
+import { LocationCounter } from "../components/LocationCounter";
+import { LocationFilters } from "../components/LocationFilters";
 
 export function LocationsPage() {
   const { theme } = useTheme();
@@ -88,100 +91,21 @@ export function LocationsPage() {
           Localizaciones en Zaragoza
         </h1>
 
-        {/* RETROALIMENTACIÓN: CONTADOR DE RESULTADOS */}
-        <div
-          style={{
-            marginBottom: "25px",
-            color: colors.subtext,
-            fontSize: "0.9rem",
-            fontWeight: 500,
-          }}
-        >
-          {sortedLocations.length === 0
-            ? "No se han encontrado resultados para tu búsqueda"
-            : `Se han encontrado ${sortedLocations.length} localizaciones`}
-        </div>
+        {/* Componente del Contador */}
+        <LocationCounter count={sortedLocations.length} color={colors.subtext} />
 
-        {/* BARRA DE FILTROS */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-            marginBottom: "20px",
-            flexWrap: "wrap",
-          }}
-        >
-          <input
-            value={query}
-            onChange={(location) => setQuery(location.target.value)}
-            placeholder="Buscar por nombre o categoría"
-            style={{
-              flex: 1,
-              padding: "12px 14px",
-              borderRadius: "10px",
-              border: "1px solid #d0d7de",
-              background: "#f9fafb",
-              fontSize: "1rem",
-            }}
-          />
-          <select
-            value={categoryFilter}
-            onChange={(location) => setCategoryFilter(location.target.value)}
-            style={{
-              padding: "12px 14px",
-              borderRadius: "10px",
-              border: `1px solid ${colors.borders}`,
-              backgroundColor: colors.navbar,
-              color: colors.text,
-              fontSize: "1rem",
-              minWidth: "170px",
-            }}
-          >
-            <option value="all">Todas las categorías</option>
-            {categoryOptions.map((category) => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-          <select
-            value={sortOrder}
-            onChange={(location) =>
-              setSortOrderLocations(location.target.value as "asc | desc")
-            }
-            style={{
-              padding: "12px 14px",
-              borderRadius: "10px",
-              border: `1px solid ${colors.borders}`,
-              backgroundColor: colors.navbar,
-              color: colors.text,
-              fontSize: "1rem",
-              minWidth: "170px",
-            }}
-          >
-            <option value="asc">Ascendente (A-Z)</option>
-            <option value="desc">Descendente (Z-A)</option>
-          </select>
+        {/* Componente de Filtros */}
+        <LocationFilters
+          query={query}
+          onQueryChange={setQuery}
+          categoryFilter={categoryFilter}
+          onCategoryFilterChange={setCategoryFilter}
+          categoryOptions={categoryOptions}
+          sortOrder={sortOrder}
+          onSortOrderChange={setSortOrderLocations}
+          colors={colors}
+        />
 
-          {query && (
-            <button
-              onClick={() => setQuery("")}
-              style={{
-                padding: "12px 14px",
-                borderRadius: "10px",
-                border: "1px solid #d0d7de",
-                backgroundColor: colors.text,
-                color: colors.bg,
-                cursor: "pointer",
-              }}
-            >
-              Borrar
-            </button>
-          )}
-        </div>
-
-        {/* LISTADO DE TARJETAS */}
         {filteredLocations.length === 0 ? (
           <p style={{ color: "#666" }}>No se han encontrado localizaciones.</p>
         ) : (
@@ -193,65 +117,7 @@ export function LocationsPage() {
             }}
           >
             {sortedLocations.map((location) => (
-              <NavLink to={`/locations/${location.id}`}>
-                <div
-                  key={location.id}
-                  style={{
-                    background: colors.navbar,
-                    borderRadius: "16px",
-                    padding: "24px",
-                    boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "8px",
-                    minHeight: "120px",
-                  }}
-                >
-                  {/* NOMBRE DE LA LOCALIZACIÓN */}
-                  <h3
-                    style={{
-                      margin: 0,
-                      color: colors.text,
-                      fontSize: "1.4rem",
-                      fontWeight: 700,
-                    }}
-                  >
-                    {location.name}
-                  </h3>
-
-                  {/* CATEGORÍA Y ACCESO EN LA MISMA LÍNEA */}
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "15px",
-                      fontSize: "0,7rem",
-                      color: colors.text,
-                      fontWeight: 500,
-                      marginTop: "5px",
-                    }}
-                  >
-                    <span>
-                      🏷️ Categoría: <strong>{location.category}</strong>
-                    </span>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "15px",
-                      fontSize: "0,7rem",
-                      color: colors.text,
-                      fontWeight: 500,
-                    }}
-                  >
-                    <span>
-                      ♿ Acceso a discapacitados:{" "}
-                      {location.disabledAccess ? "🟢" : "🔴"}
-                    </span>
-                  </div>
-                </div>
-              </NavLink>
+              <LocationCard key={location.id} location={location} colors={colors} />
             ))}
           </div>
         )}
